@@ -1,3 +1,11 @@
+/* 
+ * Copyright (C) 2017 Vikram Fugro
+ *
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.
+ */
+
 #ifndef __UPNPP_H__
 #define __UPNPP_H__
 
@@ -9,10 +17,10 @@ struct Renderer {
 };
 
 struct Renderer* 	up_scan (int*);
-void 				up_stop (char*);
-void 				up_play (char*, char*);
+void 							up_stop (char*);
+void 							up_play (char*, char*);
 
-void* 				start_upnp (void);
-void  				stop_upnp (void*);
+void* 						start_upnp (void);
+void  						stop_upnp (void*);
 
 #endif

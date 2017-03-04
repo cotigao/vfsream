@@ -1,3 +1,11 @@
+/* 
+ * Copyright (C) 2017 Vikram Fugro
+ *
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.
+ */
+
 package main
 
 /*
