@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2017 Vikram Fugro
  *
  *
@@ -10,7 +10,7 @@ package main
 
 /*
 #cgo CFLAGS: -I../gst -I/usr/include/gstreamer-1.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/libsoup-2.4 -I/usr/include/libxml2 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/uuid -I/usr/include/gupnp-1.0 -I/usr/include/gssdp-1.0 -I/usr/include/libsoup-2.4 -I/usr/include/libxml2 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/uuid -I/usr/include/gupnp-av-1.0 -I/usr/include/gupnp-1.0 -I/usr/include/gssdp-1.0 -pthread -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/gssdp-1.0 -I/usr/include/libxml2 -I/usr/lib/x86_64-linux-gnu/gstreamer-1.0/include/
-#cgo LDFLAGS: -L/home/vikram/go/src/httpMediaLiveServer/gst/ -L/usr/lib/x86_64-linux-gnu -ltarget -lgstbase-1.0 -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0 -lgupnp-1.0 -lgupnp-av-1.0 -lgssdp-1.0 -lxml2 -lpthread -lm -lz -licui18n -licuuc -licudata -llzma
+#cgo LDFLAGS: -L/home/vikram/go/src/vfstream/gst/ -L/usr/lib/x86_64-linux-gnu -ltarget -lgstbase-1.0 -lgstreamer-1.0 -lgobject-2.0 -lglib-2.0 -lgupnp-1.0 -lgupnp-av-1.0 -lgssdp-1.0 -lxml2 -lpthread -lm -lz -licui18n -licuuc -licudata -llzma
 #include <GstSource.h>
 #include <Upnp.h>
 #include <stdlib.h>
@@ -208,8 +208,8 @@ func setInit(device string, endpoint string) string {
 			go func() {
 				dur := time.Since(store[id].then)
 				if dur > 10*time.Second {
-					//TESTVV
-					//setInactive(id)
+					fmt.Println("no health monitoring, closing ", id)
+					setInactive(id)
 				}
 			}()
 

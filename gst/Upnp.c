@@ -74,7 +74,7 @@ typedef struct
   gchar* name;
 } dmr;
 
-static GstAtomicQueue* aqueuee;
+static GstAtomicQueue* aqueue;
 static GRecMutex evlock;
 static GList* dmrList = NULL;
 static GUPnPControlPoint *dmr_cp = NULL;
@@ -793,7 +793,7 @@ up_play (char* target, char *url)
   c->type = EV_PLAY;
   c->data1 = (void*)g_strdup(target);
   c->data2 = (void*)g_strdup(url);
-  gst_atomic_queue_push(aqueuee, c);
+  gst_atomic_queue_push(aqueue, c);
 }
 
 static void
@@ -814,7 +814,7 @@ up_scan (int *len)
 
   cmd* c = g_new0(cmd, 1);
   c->type = EV_SCAN;
-  gst_atomic_queue_push(aqueuee, c);
+  gst_atomic_queue_push(aqueue, c);
 
   sleep(5);
   
@@ -847,7 +847,7 @@ up_stop (char *target)
   cmd* c = g_new0(cmd, 1);
   c->type = EV_STOP;
   c->data1 = g_strdup (target);
-  gst_atomic_queue_push(aqueuee, c);
+  gst_atomic_queue_push(aqueue, c);
 }
 
 static gboolean
@@ -855,7 +855,7 @@ listener(gpointer udata)
 {
   gpointer data;
 
-  while ((data = gst_atomic_queue_pop(aqueuee))) {
+  while ((data = gst_atomic_queue_pop(aqueue))) {
     cmd* c = (cmd*) data;
   
     switch (c->type) {
@@ -907,7 +907,7 @@ start_upnp (void)
 #if !GLIB_CHECK_VERSION(2, 35, 0)
   g_type_init ();
 #endif
-  aqueuee = gst_atomic_queue_new(0);
+  aqueue = gst_atomic_queue_new(0);
   g_rec_mutex_init(&evlock);
   td = g_thread_new("upnp", upnp_thread, NULL);
   return (void*)td;
